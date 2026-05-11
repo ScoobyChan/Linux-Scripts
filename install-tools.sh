@@ -1,37 +1,38 @@
 #!/bin/bash
 install=$(bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/pack_mgr_install.sh | sh | grep sudo")
 
-############################
-### Package Installation ###
-############################
-# Packages
 general_tools="vim python3"
 network_tools="nmap iptables"
-setup_tools="git wget curl"
+setup_tools="git curl"
 qemu_tools="qemu qemu-img python3 python3-pip virt-manager"
 
-# $install $general_tools $network_tools $setup_tools $qemu_tools
+CHOICES=$(whiptail --title "Package Installer" --checklist \
+"Select package groups to install:" 20 60 10 \
+"general" "General Tools" OFF \
+"network" "Network Tools" OFF \
+"setup" "Setup Tools" OFF \
+"qemu" "QEMU Tools" OFF \
+3>&1 1>&2 2>&3)
 
-#!/bin/bash
+# Convert whiptail output into usable list
+INSTALL_LIST=""
 
-echo "Select packages to install (space separated):
-1) General Tools
-2) Network Tools
-3) Setup Tools
-4) QEMU Tools
-5) Quit"
-
-read -p "Enter choices (eg 2 4): " choices
-
-for c in $choices; do
-    case $c in
-        1) list="$list $general_tools" ;;
-        2) list="$list $network_tools" ;;
-        3) list="$list $setup_tools" ;;
-        4) list="$list $qemu_tools" ;;
-        5) exit 0 ;;
-        *) echo "Invalid option: $c" ;;
+for choice in $CHOICES; do
+    case $choice in
+        "\"general\"")
+            INSTALL_LIST="$INSTALL_LIST $general_tools"
+            ;;
+        "\"network\"")
+            INSTALL_LIST="$INSTALL_LIST $network_tools"
+            ;;
+        "\"setup\"")
+            INSTALL_LIST="$INSTALL_LIST $setup_tools"
+            ;;
+        "\"qemu\"")
+            INSTALL_LIST="$INSTALL_LIST $qemu_tools"
+            ;;
     esac
 done
 
-echo "Installing: $list"
+# Run installer
+[ -n "$INSTALL_LIST" ] && $install $INSTALL_LIST
