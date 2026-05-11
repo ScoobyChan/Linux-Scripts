@@ -23,5 +23,5 @@ curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads
 Run installation scripts
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/install-tools.sh | sh
+bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/install-tools.sh | sh"
 ```
