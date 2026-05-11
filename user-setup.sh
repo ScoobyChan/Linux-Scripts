@@ -24,10 +24,18 @@ mkdir -p ~/.local/bin
 echo "export PATH=\$HOME/.local/bin:\$PATH" >> ~/.bashrc
 
 # setup bash profile
+$current_date=$(date +%Y%m%d%H%M%S)
+cp ~/.bashrc ~/.bash_rc_backup_$current_date
+cp ~/.bash_profile ~/.bash_profile_$current_date
 
-curl -fsSL https://raw.githubusercontent.com/fayadlinux/dotfiles/main/bashrc -o ~/.bashrc
-curl -fsSL https://raw.githubusercontent.com/fayadlinux/dotfiles/main/bash_profile -o ~/.bash_profile 
-curl -fsSL https://raw.githubusercontent.com/fayadlinux/dotfiles/main/aliases -o ~/.aliases
+if [ -f ~/.bash_aliasrc ]; then
+    cp ~/.bash_aliasrc ~/.bash_aliasrc_backup_$current_date
+fi
+
+
+curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/bashrc.sh -o ~/.bashrc
+curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/bash_profile.sh -o ~/.bash_profile
+curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/bash_aliasrc.sh -o ~/.bash_aliasrc
 
 source ~/.bashrc
 source ~/.bash_profile
