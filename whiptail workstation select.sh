@@ -12,16 +12,16 @@ CHOICE=$?
 
 case $CHOICE in
     0)
-        bash workstation-arch.sh
+        bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/workstation-arch.sh | sh"
         ;;
     1)
-        bash workstation-deb.sh
+        bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/workstation-deb.sh | sh"
         ;;
     2)
-        bash workstation-opensuse.sh
+        bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/workstation-opensuse.sh | sh"
         ;;
     4)
-        bash workstation-rhel.sh
+        bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/workstation-rhel.sh | sh"
         ;;
     5)
         exit 0
