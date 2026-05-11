@@ -5,10 +5,10 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 echo "Updating package lists..."
 sudo dnf check-update
 echo "Installing Visual Studio Code..."
-sudo dnf install code
+sudo dnf install code -y
 
 echo "Installing Steam..."
-sudo dnf install steam
+sudo dnf install steam -y
 
 echo "Installing Discord..."
-sudo dnf install discord 
+sudo dnf install discord -y

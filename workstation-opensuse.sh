@@ -5,10 +5,10 @@ echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com
 echo "Updating package lists..."
 sudo zypper refresh
 echo "Installing Visual Studio Code..."
-sudo zypper install code
+sudo zypper install code -y
 
 echo "Installing Steam..."
-sudo zypper install steam
+sudo zypper install steam -y
 
 echo "Installing Discord..."
-sudo zypper install discord
+sudo zypper install discord -y

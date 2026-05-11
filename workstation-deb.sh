@@ -1,6 +1,7 @@
 @echo "Installing Visual Studio Code..."
 curl -L https://go.microsoft.com/fwlink/?LinkID=760868 --output vscode.deb
-sudo apt install ./vscode.deb
+sudo apt install ./vscode.deb -y
+rm vscode.deb
 
 echo "code code/add-microsoft-repo boolean true" | sudo debconf-set-selections
 
@@ -14,13 +15,15 @@ echo "Updating package lists..."
 sudo apt update
 
 echo "Installing Visual Studio Code..."
-sudo apt install code
+sudo apt install code -y
 
 
 echo "Installing Steam..."
 curl -L https://cdn.cloudflare.steamstatic.com/client/installer/steam.deb --output steam.deb
-sudo apt install ./steam.deb
+sudo apt install ./steam.deb -y
+rm steam.deb
 
 echo "Installing Discord..."
 curl -L https://dl.discordapp.net/apps/linux/0.0.24/discord-0.0.24.deb --output discord.deb
-sudo apt install ./discord.deb 
+sudo apt install ./discord.deb -y
+rm discord.deb
