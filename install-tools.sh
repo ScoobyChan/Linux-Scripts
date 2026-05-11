@@ -1,3 +1,6 @@
+#!/bin/bash
+install=$(bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/pack_mgr_install.sh | sh | grep sudo")
+
 ############################
 ### Package Installation ###
 ############################
@@ -12,13 +15,13 @@ qemu_tools="qemu qemu-img python3 python3-pip virt-manager"
 #!/bin/bash
 
 echo "Select packages to install (space separated):
-1) General Tools ($general_tools)
-2) Network Tools ($network_tools)
-3) Setup Tools   ($setup_tools)
-4) QEMU Tools    ($qemu_tools)
+1) General Tools
+2) Network Tools
+3) Setup Tools
+4) QEMU Tools
 5) Quit"
 
-read -p "Enter choices: " choices
+read -p "Enter choices (eg 2 4): " choices
 
 for c in $choices; do
     case $c in
@@ -32,4 +35,3 @@ for c in $choices; do
 done
 
 echo "Installing: $list"
-$install $list
