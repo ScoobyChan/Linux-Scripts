@@ -38,3 +38,6 @@ dos2unix ~/.bash_aliasrc
 
 source ~/.bashrc
 source ~/.bash_profile
+
+
+echo "Script complete. Please restart your terminal to apply changes."
