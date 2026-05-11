@@ -1,7 +1,7 @@
 #!/bin/bash
 install=$(bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/pack_mgr_install.sh | sh | grep sudo")
 
-general_tools="vim python3"
+general_tools="vim python3 make"
 network_tools="nmap iptables"
 setup_tools="git curl"
 qemu_tools="qemu qemu-img python3 python3-pip virt-manager"
