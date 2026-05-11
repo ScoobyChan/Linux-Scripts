@@ -18,3 +18,10 @@ Run the full setup script to install all configuration files at once:
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/user-setup.sh | sh
+```
+
+Run installation scripts
+
+```sh
+curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/install-tools.sh | sh
+```
