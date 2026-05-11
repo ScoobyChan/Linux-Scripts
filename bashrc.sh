@@ -3,7 +3,7 @@
 #######################
 
 ## Source global definitions
-[[ -f /etc/bashrc ]]
+[[ -f /etc/bashrc ]] && . /etc/bashrc
 
 # User specified aliases and functions
 function cdls() {
