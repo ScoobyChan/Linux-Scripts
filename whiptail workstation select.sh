@@ -1,5 +1,7 @@
 # !/bin/bash
 # This script provides a menu for selecting which workstation setup to install packages for.
+install=$(bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/pack_mgr_install.sh | sh | grep sudo")
+$install make
 
 whiptail --title "Workstation Setup" --menu "Select an option:" 15 50 4 \
     "1" "Install Arch Linux packages" \
