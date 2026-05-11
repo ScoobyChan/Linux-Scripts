@@ -17,10 +17,10 @@ echo "Installing Visual Studio Code..."
 sudo apt install code
 
 
-@echo "installing steam..."
+echo "Installing Steam..."
 curl -L https://cdn.cloudflare.steamstatic.com/client/installer/steam.deb --output steam.deb
 sudo apt install ./steam.deb
 
-@echo "installing discord..."
+echo "Installing Discord..."
 curl -L https://dl.discordapp.net/apps/linux/0.0.24/discord-0.0.24.deb --output discord.deb
 sudo apt install ./discord.deb 
