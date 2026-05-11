@@ -53,14 +53,14 @@ _CYAN="\033[1;36m"
 
 case "$_HOST_OS" in
   AIX)
-    _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\]\u\[${_LGREEN}\]@\[${_LYELLOW}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
+    _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREEN}\]@\[${_LYELLOW}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
     ;;
   Lin)
-    _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\]\u\[${_LGREEN}\]@\[${_LRED}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
+    _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREEN}\]@\[${_LRED}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
     ;;
   *)
     ## Default fallback
-    _PS1="\[${_LGREEN}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LMAGENTA}\]\u\[${_LRED}\]@\[${_LYELLOW}\]\h\[${_LGREEN}\]:\$PWD\[${_NC}\]\n> "
+    _PS1="\[${_LGREEN}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LMAGENTA}\] \u\[${_LRED}\]@\[${_LYELLOW}\]\h\[${_LGREEN}\]:\$PWD\[${_NC}\]\n> "
     ;;
 esac
 
