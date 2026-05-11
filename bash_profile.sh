@@ -3,7 +3,7 @@
 #############################
 
 ## Get aliases and functions
-if [ -f ~/.bashrc ]; then
+if [[ -f ~/.bashrc ]]; then
     . ~/.bashrc
 fi
 
@@ -13,19 +13,20 @@ export HISTFILESIZE=10000
 export HISTSIZE=5000
 
 ## VIM
-export MYVIMRC=~/.vimrc
-export EDITOR=/usr/bin/vim
+export MYVIMRC="$HOME/.vimrc"
+export EDITOR="/usr/bin/vim"
 
 ## TTY
-_TTY=`/usr/bin/tty | /bin/awk -F "/" ' { print $3$4 } '`
+_TTY=$(tty | awk -F "/" '{ print $3$4 }')
 
-## HOST OS
-_HOST_OS=$(uname -a | cut -c 1-3)
+## HOST OS (3‑letter code)
+_HOST_OS=$(uname -s | cut -c 1-3)
 
-## PROMPT
-PROMPT_COMMAND='echo -ne "\033]0;${_HOST_OS}" - ${_TTY}\007'
+## PROMPT (terminal title)
+PROMPT_COMMAND='echo -ne "\033]0;${_HOST_OS} - ${_TTY}\007"'
 
-complete -c sudo
+## Bash completion for sudo
+complete -cf sudo
 
 ## Colors
 _LRED="\033[0;91m"
@@ -44,21 +45,100 @@ _WHITE="\033[1;37m"
 _YELLOW="\033[1;33m"
 _MAGENTA="\033[1;35m"
 _BLUE="\033[1;34m"
-_CYAN="\033[1;36"
-
+_CYAN="\033[1;36m"
 
 ######################
 ### PROCESS STATUS ###
 ######################
 
-## DEFAULT
-_PS1="\[${_LGREEN}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[$_LMAGENTA\] \u\[${_LRED}\]@\[${_LYELLOW}\]\h\[${_LGREEN}\]:\$PWD\[${_NC}\]\n> "
+case "$_HOST_OS" in
 
-## AIX
-_PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREEN}\]@\[${_LYELLOW}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
+  AIX)
+    _PS1="
 
-## LINUX
-_PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREEN}\]@\[${_LRED}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
+\[${_LMAGENTA}\]
 
-PS1=${_PS1}
+\$_TTY [$?] \$(date +'%H:%M:%S')
+
+\[${_LCYAN}\]
+
+ \u
+
+\[${_LGREEN}\]
+
+@
+
+\[${_LYELLOW}\]
+
+\h
+
+\[${_LBLUE}\]
+
+:\$PWD
+
+\[${_NC}\]
+
+\n> "
+    ;;
+
+  Lin)
+    _PS1="
+
+\[${_LMAGENTA}\]
+
+\$_TTY [$?] \$(date +'%H:%M:%S')
+
+\[${_LCYAN}\]
+
+ \u
+
+\[${_LGREEN}\]
+
+@
+
+\[${_LRED}\]
+
+\h
+
+\[${_LBLUE}\]
+
+:\$PWD
+
+\[${_NC}\]
+
+\n> "
+    ;;
+
+  *)
+    ## Default fallback
+    _PS1="
+
+\[${_LGREEN}\]
+
+\$_TTY [$?] \$(date +'%H:%M:%S')
+
+\[${_LMAGENTA}\]
+
+ \u
+
+\[${_LRED}\]
+
+@
+
+\[${_LYELLOW}\]
+
+\h
+
+\[${_LGREEN}\]
+
+:\$PWD
+
+\[${_NC}\]
+
+\n> "
+    ;;
+esac
+
+PS1="${_PS1}"
+
 #### FINISH .bash_profile ####
