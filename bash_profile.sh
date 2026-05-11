@@ -3,7 +3,9 @@
 #############################
 
 ## Get aliases and functions
-[[ -f ~/.bashrc ]] && source ~/.bashrc
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
 
 ## History
 export HISTTIMEFORMAT="%F %T: "
