@@ -59,6 +59,4 @@ _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREE
 _PS1="\[${_LMAGENTA}\]\$_TTY [$?] \$(date +'%H:%M:%S')\[${_LCYAN}\] \u\[${_LGREEN}\]@\[${_LRED}\]\h\[${_LBLUE}\]:\$PWD\[${_NC}\]\n> "
 
 PS1=${_PS1}
-
-export PATH=$PATH:$HOME/.local/bin
 #### FINISH .bash_profile ####
