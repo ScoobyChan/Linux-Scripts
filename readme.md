@@ -25,3 +25,8 @@ Run installation scripts
 ```sh
 bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/install-tools.sh | sh"
 ```
+
+Workstation scripts (select os carefully)
+```sh
+sudo bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/install-tools.sh | sh"
+```
