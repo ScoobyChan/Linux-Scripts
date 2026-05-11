@@ -11,4 +11,4 @@ echo "Installing Steam..."
 sudo dnf install steam -y
 
 echo "Installing Discord..."
-sudo dnf install discord -y
+sudo dnf install discord 
