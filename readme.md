@@ -28,5 +28,5 @@ bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/r
 
 Workstation scripts (select os carefully)
 ```sh
-sudo bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/whiptail%20workstation%20select.sh | sh"
+sudo bash -c "curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/whiptail%20install%20select.sh | sh"
 ```
