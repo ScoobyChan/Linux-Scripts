@@ -19,10 +19,6 @@ echo "set tabstop=4" >> ~/.vimrc
 echo "set shiftwidth=4" >> ~/.vimrc
 echo "set expandtab" >> ~/.vimrc
 
-# setup python
-mkdir -p ~/.local/bin
-echo "export PATH=\$HOME/.local/bin:\$PATH" >> ~/.bashrc
-
 # setup bash profile
 current_date=$(date +%Y%m%d%H%M%S)
 cp ~/.bashrc ~/.bash_rc_backup_$current_date
@@ -31,7 +27,6 @@ cp ~/.bash_profile ~/.bash_profile_$current_date
 if [ -f ~/.bash_aliasrc ]; then
     cp ~/.bash_aliasrc ~/.bash_aliasrc_backup_$current_date
 fi
-
 
 curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/bashrc.sh -o ~/.bashrc
 curl -fsSL https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/bash_profile.sh -o ~/.bash_profile
