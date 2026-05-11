@@ -8,28 +8,33 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+if [[ ":$PATH:" != *":$HOME/.local/bin:$HOME/bin:"* ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 fi
 export PATH
 
 # User specified aliases and functions
-function cdls() {
-	[[ -z "$1" ]] && _CD="cd" || _CD="cd $1"
-	${_CD};
-	if [ -x /usr/bin/dircolors ]; then
-    ls --color=auto -l
-  else
-    ls
-  fi
+cdls() {
+    if [[ -z "$1" ]]; then
+        cd
+    else
+        cd "$1"
+    fi
+
+    if command -v dircolors >/dev/null 2>&1; then
+        ls --color=auto -l
+    else
+        ls -l
+    fi
 }
 export -f cdls
 
-## split your login up for
-### ps -ef | grep [l]ogin
-export _U1=${USER: :1}
-export _U2=${USER: -7:8}
+# Split your login up for
+# ps -ef | grep [l]ogin
+export _U1="${USER:0:1}"
+export _U2="${USER: -7:8}"
 
+# Load extra aliases
 [[ -f ~/.bash_aliasrc ]] && source ~/.bash_aliasrc
 
 #### FINISH .bashrc ####
