@@ -8,6 +8,6 @@ sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin d
 useradd -r svc_shuffle -m -d /usr/shuffle -s /bin/bash -c "Shuffle Service account"
 su -c "cd /usr/shuffle && git clone https://github.com/Shuffle/Shuffle && chown -R svc_shuffle:svc_shuffle /usr/shuffle/ && cd Shuffle" - svc_shuffle
 
-su -c "sudo swapoff -a && sudo sysctl -w vm.max_map_count=262144 && sudo usermod -aG docker svc_shuffle" - root
+su -c "sudo swapoff -a && sudo sysctl -w vm.max_map_count=262144 && sudo usermod -aG docker svc_shuffle && systemctl enable docker --now" - root
 
 su -c "cd /usr/shuffle/Shuffle && docker compose up -d" - svc_shuffle
