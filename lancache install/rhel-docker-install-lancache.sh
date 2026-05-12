@@ -6,7 +6,7 @@ sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker
 sudo dnf -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 useradd -r svc_lancache -m -d /usr/lancache -s /bin/bash -c "Lancache Service account"
-su -c "cd /usr/lancache && git clone https://github.com/lancachenet/docker-compose/ lancache --depth=1 && chown -R svc_lancache:svc_lancache /usr/lancache/ && cd lancache && curl -O https://raw.githubusercontent.com/lancachenet/docker-compose/main/docker-compose.yml > .env" - svc_lancache
+su -c "cd /usr/lancache && git clone https://github.com/lancachenet/docker-compose/ lancache --depth=1 && chown -R svc_lancache:svc_lancache /usr/lancache/ && cd lancache && curl -O https://raw.githubusercontent.com/ScoobyChan/Linux-Scripts/refs/heads/main/lancache%20install/.env > .env" - svc_lancache
 
 su -c "sudo swapoff -a && sudo usermod -aG docker svc_lancache && systemctl enable docker --now" - root
 
