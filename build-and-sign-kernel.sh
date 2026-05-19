@@ -76,7 +76,7 @@ if [ ! -d "$KEY_DIR" ]; then
     certutil -d /etc/pki/pesign \
            -n 'Custom Secure Boot key' \
            -Lr \
-           > sb_cert.cer
+           > "$KEY_DIR/sb_cert.cer"
 
     echo "[+] Keys generated:"
     echo "    Private key: $KEY"
@@ -91,7 +91,7 @@ fi
 ########################################
 echo "[+] Enrolling MOK key..."
 # sudo mokutil --import "$DER"
-sudo mokutil --import sb_cert.cer
+sudo mokutil --import "$KEY_DIR/sb_cert.cer"
 
 echo "[!] IMPORTANT: You MUST reboot and complete MOK enrollment in the blue screen."
 echo "[!] After reboot, run this script again with:  --continue"
@@ -107,6 +107,10 @@ fi
 ########################################
 echo "[+] Fetching latest stable kernel version..."
 LATEST=$(curl -s https://www.kernel.org/ | grep -A1 "stable" | grep -oP '\d+\.\d+\.\d+' | sed -n '1p')
+
+if [[ "$2" != "" ]]; then
+    LATEST="$2"
+fi
 
 if [ -z "$LATEST" ]; then
     echo "[-] Could not detect latest kernel version."
@@ -135,6 +139,22 @@ echo "[+] Preparing kernel config..."
 if [ -f /boot/config-$(uname -r) ]; then
     echo "[+] Using current kernel config as base"
     cp /boot/config-$(uname -r) .config
+    # Disable iSCSI transport
+    scripts/config --disable CONFIG_ISCSI_TCP
+    scripts/config --disable CONFIG_SCSI_ISCSI_ATTRS
+    scripts/config --disable CONFIG_ISCSI_BOOT_SYSFS
+    scripts/config --disable CONFIG_ISCSI_IBFT_FIND
+    scripts/config --disable CONFIG_ISCSI_IBFT
+
+    # Disable iSCSI offload NICs (if present)
+    scripts/config --disable CONFIG_BE2ISCSI
+    scripts/config --disable CONFIG_CXGB3_ISCSI
+    scripts/config --disable CONFIG_CXGB4_ISCSI
+    scripts/config --disable CONFIG_BNX2I
+    scripts/config --disable CONFIG_QEDI
+    scripts/config --disable CONFIG_QEDF
+    scripts/config --disable CONFIG_ISCSI_TARGET
+
     yes "" | make oldconfig
 else
     echo "[+] No existing config found, using defaults"
@@ -157,11 +177,12 @@ sudo make modules_install
 ### Sign All Kernel Modules
 ########################################
 echo "[+] Signing kernel modules..."
-MOD_DIR="/lib/modules/$LATEST"
+# MOD_DIR="/lib/modules/$LATEST"
 
-for mod in $(find "$MOD_DIR" -type f -name "*.ko"); do
-    sudo /usr/src/kernels/$(uname -r)/scripts/sign-file sha512 "$KEY" "$CRT" "$mod"
-done
+# Need to fix this for kernel 7.1.0
+# for mod in $(find "$MOD_DIR" -type f -name "*.ko"); do
+#     sudo /usr/src/kernels/$(uname -r)/scripts/sign-file sha512 "$KEY" "$CRT" "$mod"
+# done
 
 ########################################
 ### Install Kernel
@@ -191,11 +212,15 @@ sudo mv "$EFI_KERNEL.signed" "$EFI_KERNEL"
 ########################################
 echo "[+] Updating bootloader..."
 
+dracut -f /boot/initramfs-$(make kernelrelease).img $(make kernelrelease)
+
 if command -v update-grub >/dev/null 2>&1; then
     sudo update-grub
 elif command -v grub-mkconfig >/dev/null 2>&1; then
     sudo grub-mkconfig -o /boot/grub/grub.cfg
 elif command -v grub2-mkconfig >/dev/null 2>&1; then
+    sed -i 's/root=iscsi:[^ ]*//g' /etc/default/grub
+    grub2-mkconfig -o /boot/grub2/grub.cfg
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 else
     echo "[!] Could not detect GRUB update command. Update manually."
