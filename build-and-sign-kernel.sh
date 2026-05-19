@@ -1,8 +1,6 @@
 #!/bin/bash
 set -e
 
-## Co-pilot generated
-
 ########################################
 ### Detect Distro
 ########################################
@@ -197,6 +195,8 @@ if command -v update-grub >/dev/null 2>&1; then
     sudo update-grub
 elif command -v grub-mkconfig >/dev/null 2>&1; then
     sudo grub-mkconfig -o /boot/grub/grub.cfg
+elif command -v grub2-mkconfig >/dev/null 2>&1; then
+    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 else
     echo "[!] Could not detect GRUB update command. Update manually."
 fi
