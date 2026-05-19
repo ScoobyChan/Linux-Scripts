@@ -1,0 +1,43 @@
+#!/bin/bash
+
+if [[ "$1" != "--install" ]]; then
+    echo "[+] Installing dependencies..."
+    # Update the system
+    sudo dnf update -y
+
+    if command -v qemu >/dev/null 2>&1; then
+        # Install QEMU, KVM, and management tools
+        sudo dnf install -y qemu-kvm libvirt virt-install virt-manager virt-viewer
+
+        # Start and enable the service
+        sudo systemctl start libvirtd
+        sudo systemctl enable libvirtd
+
+        # Verify status
+        sudo systemctl status libvirtd
+
+        # Add user to libvirt group
+        sudo usermod -aG libvirt $USER
+
+        # Apply changes
+        newgrp libvirt
+    fi
+fi
+
+VM_DIR="$(pwd)/rocky-vm"
+if [ ! -d "$VM_DIR" ]; then
+    mkdir -p $VM_DIR
+    test=$(curl -O https://dl.rockylinux.org/pub/rocky/10/live/x86_64/Rocky-10-KDE-x86_64-latest.iso --output-dir $VM_DIR)
+    echo $test
+fi
+
+sudo virt-install \
+  --name rocky-vm \
+  --ram 4096 \
+  --vcpus 2 \
+  --disk path=/var/lib/libvirt/images/rhel-vm.qcow2,size=30 \
+  --os-variant rhel10.1 \
+  --network bridge=virbr0 \
+  --graphics none \
+  --console pty,target_type=serial \
+  --cdrom $VM_DIR/$test
