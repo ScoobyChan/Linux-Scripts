@@ -7,8 +7,13 @@ sudo dnf check-update
 echo "Installing Visual Studio Code..."
 sudo dnf install code -y
 
-echo "Installing Steam..."
-sudo dnf install steam -y
-
-echo "Installing Discord..."
-sudo dnf install discord 
+#!/bin/bash
+curl -fsSL https://tailscale.com/install.sh | sh
+# Flatpak apps
+sudo dnf install flatpak
+flatpak remote-delete flathub
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+flatpak install flathub com.discordapp.Discord -y
+flatpak install flathub com.valvesoftware.Steam -y
+flatpak install flathub trayscale -y
+flatpak install flathub 
